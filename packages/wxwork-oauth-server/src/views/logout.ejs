@@ -1,0 +1,10 @@
+<div id="template" style="display: none;">
+<%- form -%>
+<button type="submit">Sign Out</button>
+</form>
+</div>
+<script>
+if (top === self) {
+  document.getElementById('div').style.display = 'block';
+}
+</script>

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "commonjs",
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "removeComments": false,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "lib": ["es2019", "dom"],
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": [
+    "./.eslintrc.js",
+    "./.prettierrc.js",
+    "./jest.config.js"
+  ]
+}

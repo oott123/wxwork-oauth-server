@@ -1,0 +1,10 @@
+<%- include('partials/header', { title }) -%>
+  <div class="message">
+    <% if (typeof messageTitle !== 'undefined') { %>
+      <div class="title"><%= messageTitle %></div>
+    <% } %>
+    <div class="body">
+      <p><%= message %></p>
+    </div>
+  </div>
+<%- include('partials/footer') -%>

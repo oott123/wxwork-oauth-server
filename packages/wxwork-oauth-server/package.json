@@ -1,0 +1,29 @@
+{
+  "name": "wxwork-oauth-server",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "node -r source-map-support/register dist/index.js",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "watch": "tsc --watch --preserveWatchOutput",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "cookie-session": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "oidc-provider": "^6.18.2"
+  },
+  "devDependencies": {
+    "@types/cookie-session": "^2.0.37",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.2",
+    "@types/node-fetch": "^2.5.4",
+    "jose": "^1.20.0"
+  }
+}
