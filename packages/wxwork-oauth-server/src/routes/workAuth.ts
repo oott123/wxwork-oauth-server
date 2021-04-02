@@ -77,7 +77,7 @@ export function workAuth(app: Express, provider: Provider, wxWork: WxWorkService
     req.session.userId = info.userId
 
     if (uid) {
-      return res.redirect(`/interaction/${req.session.uid}`)
+      return res.redirect(`/interaction/${uid}`)
     } else {
       return res.redirect('/')
     }
