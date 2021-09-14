@@ -36,7 +36,7 @@ const provider = new Provider(baseUrl, {
       return {
         accountId: id,
         claims() {
-          return { sub: id, email: user.email, name: user.name, username: id }
+          return { ...user, sub: id, username: id }
         },
       }
     }
@@ -48,19 +48,20 @@ const provider = new Provider(baseUrl, {
   },
   claims: {
     email: ['email'],
-    openid: ['sub', 'username'],
-    name: ['name'],
+    openid: ['sub', 'username', 'avatar', 'thumb_avatar', 'gender'],
+    name: ['name', 'alias'],
+    mobile: ['mobile', 'telephone'],
   },
   jwks,
   renderError: (ctx, out, error) => {
     if (out.error && out.error_description) {
-      ;(ctx.res as any).render('message', {
+      ctx.res.render('message', {
         title: 'Error',
         messageTitle: out.error,
         message: out.error_description,
       })
     } else {
-      ;(ctx.res as any).render('message', {
+      ctx.res.render('message', {
         title: 'Error',
         messageTitle: 'An error occurred',
         message: error,
@@ -68,9 +69,9 @@ const provider = new Provider(baseUrl, {
     }
   },
   postLogoutSuccessSource: ctx => {
-    ;(ctx.req as any).session.userId = undefined
-    ;(ctx.req as any).session.uid = undefined
-    ;(ctx.res as any).render('message', {
+    ctx.req.session.userId = undefined
+    ctx.req.session.uid = undefined
+    ctx.res.render('message', {
       title: 'Sign Out',
       messageTitle: 'Sign Out',
       message: 'You have been signed out successfully.',
