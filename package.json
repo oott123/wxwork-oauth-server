@@ -2,7 +2,7 @@
   "name": "wxwork-oauth-server",
   "version": "0.0.0",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "BSD-3-Clause",
   "scripts": {
     "build": "wsrun --stages build",
     "watch": "lerna run watch --parallel",
