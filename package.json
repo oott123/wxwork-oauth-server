@@ -1,6 +1,6 @@
 {
   "name": "wxwork-oauth-server",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "private": true,
   "license": "BSD-3-Clause",
   "scripts": {
