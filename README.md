@@ -2,7 +2,7 @@
 
 [![Docker Repository on Quay](https://quay.io/repository/oott123/wxwork-oauth-server/status "Docker Repository on Quay")](https://quay.io/repository/oott123/wxwork-oauth-server)
 
-使用企业微信验证登录的、符合 OAuth 2.0 标准的验证服务器。
+使用企业微信验证登录的、符合 OAuth 2.0 和 [OpenID Connect](https://openid.net/connect/) 标准的验证服务器。
 
 ## Why
 
@@ -41,14 +41,66 @@ docker run --rm --name=wxwork-oauth-server \
 vim .env clients.json
 
 # 启动容器
-docker run --rm --name=wxwork-oauth-server \
+docker run --rm --name=wxwork-oauth-server -p 3000:3000 \
   -v $(pwd)/.env:/app/packages/wxwork-oauth-server/.env:ro \
   -v $(pwd)/clients.json:/app/packages/wxwork-oauth-server/clients.json:ro \
   -v $(pwd)/jwk.json:/app/packages/wxwork-oauth-server/jwk.json:ro \
   quay.io/oott123/wxwork-oauth-server
 ```
 
+访问 `http://localhost:3000/.well-known/openid-configuration` 即可查看 OIDC 发现配置。
+
+### Common Usages
+
+此处给出企业常用的支持 Generic OAuth 的应用配置示例方便使用。
+
+#### GitLab (ominiauth)
+
+```ruby
+{
+  'name' => 'WxWork',
+  'app_id' => 'client',
+  'app_secret' => 'secret',
+  'args' => {
+    authorize_params: { 'scope' => 'openid email name' },
+    client_options: {
+      'site' => 'https://example.org',
+      'user_info_url' => '/me',
+      'authorize_url' => '/auth',
+      'token_url' => '/token',
+    },
+    user_response_structure: {
+      root_path: [],
+      id_path: 'username',
+      attributes: { nickname: 'username', email: 'email', name: 'name', first_name: 'name' },
+    },
+    name: 'WxWork',
+    strategy_class: 'OmniAuth::Strategies::OAuth2Generic'
+  }
+}
+```
+
+#### Grafana
+
+```ini
+[auth.generic_oauth]
+enabled = true
+name = 员工登录
+allow_sign_up = true
+client_id = client
+client_secret = secret
+scopes = openid email name
+email_attribute_name = email
+auth_url = https://example.org/auth
+token_url = https://example.org/token
+api_url = https://example.org/me
+```
+
 ### Scopes
+
+不同 scope 能获取的信息范围不同。
+
+具体字段定义请参考[企业微信开发文档](https://work.weixin.qq.com/api/doc/90000/90135/90196)，或是[归档](https://web.archive.org/web/20210914125453/https://work.weixin.qq.com/api/doc/90000/90135/90196)以防企业微信调整文档路径。
 
 ```js
 var scopes = {
