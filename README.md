@@ -26,7 +26,8 @@ docker pull quay.io/oott123/wxwork-oauth-server
 
 # 生成 jwk
 docker run --rm --name=wxwork-oauth-server \
-  quay.io/oott123/wxwork-oauth-server node /app/packages/wxwork-oauth-server/dist/tools/jwk.js > jwk.json
+  quay.io/oott123/wxwork-oauth-server \
+  node /app/packages/wxwork-oauth-server/dist/tools/jwk.js > jwk.json
 
 # 复制配置模板
 docker run --rm --name=wxwork-oauth-server \
