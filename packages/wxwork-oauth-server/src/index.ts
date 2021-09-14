@@ -53,7 +53,7 @@ const provider = new Provider(baseUrl, {
     mobile: ['mobile', 'telephone'],
   },
   jwks,
-  renderError: (ctx, out, error) => {
+  renderError: (ctx: any, out, error) => {
     if (out.error && out.error_description) {
       ctx.res.render('message', {
         title: 'Error',
@@ -68,7 +68,7 @@ const provider = new Provider(baseUrl, {
       })
     }
   },
-  postLogoutSuccessSource: ctx => {
+  postLogoutSuccessSource: (ctx: any) => {
     ctx.req.session.userId = undefined
     ctx.req.session.uid = undefined
     ctx.res.render('message', {
