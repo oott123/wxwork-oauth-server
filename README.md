@@ -1,5 +1,7 @@
 # wxwork-oauth-server
 
+[![Docker Repository on Quay](https://quay.io/repository/oott123/wxwork-oauth-server/status "Docker Repository on Quay")](https://quay.io/repository/oott123/wxwork-oauth-server)
+
 使用企业微信验证登录的、符合 OAuth 2.0 标准的验证服务器。
 
 ## Why
