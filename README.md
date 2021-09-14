@@ -30,9 +30,11 @@ docker run --rm --name=wxwork-oauth-server \
 
 # 复制配置模板
 docker run --rm --name=wxwork-oauth-server \
-  quay.io/oott123/wxwork-oauth-server cat /app/packages/wxwork-oauth-server/config-examples/clients.json > clients.json
+  quay.io/oott123/wxwork-oauth-server \
+  cat /app/packages/wxwork-oauth-server/config-examples/clients.json > clients.json
 docker run --rm --name=wxwork-oauth-server \
-  quay.io/oott123/wxwork-oauth-server cat /app/packages/wxwork-oauth-server/.env.example > .env
+  quay.io/oott123/wxwork-oauth-server \
+  cat /app/packages/wxwork-oauth-server/.env.example > .env
 
 # 手动编辑 .env 和 clients.json 以符合你的需求
 vim .env clients.json
@@ -56,6 +58,6 @@ var scopes = {
 };
 ```
 
-## Notice
+## Notes
 
 * access token 和 refresh token 都存储在内存中，重启会失效
