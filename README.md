@@ -50,6 +50,13 @@ docker run --rm --name=wxwork-oauth-server -p 3000:3000 \
 
 访问 `http://localhost:3000/.well-known/openid-configuration` 即可查看 OIDC 发现配置。
 
+<!--
+Try:
+
+http://localhost:3000/auth?client_id=client&response_type=code&redirect_uri=https://www.example.com&scope=openid
+http://localhost:3000/auth?client_id=client&grant_type=implicit&response_type=code%20id_token&redirect_uri=https://www.example.com&nonce=123&scope=openid
+-->
+
 ### Common Usages
 
 此处给出企业常用的支持 Generic OAuth 的应用配置示例方便使用。

@@ -1,10 +1,19 @@
-<div id="template" style="display: none;">
-<%- form -%>
-<button type="submit">Sign Out</button>
-</form>
+<%- include('partials/header', { title: 'Home' }) -%>
+<div class="message">
+  <div class="title">Sign Out</div>
+  <div class="body">
+    <noscript>
+      <button type="submit" id="submitButton" form="op.logoutForm" name="logout" value="yes">click here to continue</button>
+    </noscript>
+    <button type="submit" id="submitButton" form="op.logoutForm" name="logout" value="yes" style="display: none;">click here to continue</button>
+  </div>
+  <%- form -%>
+  <script>
+    if (top === self) {
+      document.getElementById('submitButton').click();
+    } else {
+      document.getElementById('submitButton').style.display = 'block';
+    }
+  </script>
 </div>
-<script>
-if (top === self) {
-  document.getElementById('div').style.display = 'block';
-}
-</script>
+<%- include('partials/footer') -%>

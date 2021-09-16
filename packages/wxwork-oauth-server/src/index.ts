@@ -46,11 +46,13 @@ const provider = new Provider(baseUrl, {
       enabled: false,
     },
   },
+  scopes: ['openid', 'offline_access', 'email', 'name', 'mobile', 'avatar'],
   claims: {
     email: ['email'],
-    openid: ['sub', 'username', 'avatar', 'thumb_avatar', 'gender'],
+    openid: ['sub', 'username', 'gender'],
     name: ['name', 'alias'],
     mobile: ['mobile', 'telephone'],
+    avatar: ['avatar', 'thumb_avatar'],
   },
   jwks,
   renderError: (ctx: any, out, error) => {
@@ -68,9 +70,12 @@ const provider = new Provider(baseUrl, {
       })
     }
   },
+  logoutSource: (ctx: any, form: string) => {
+    ctx.res.render('logout', {
+      form,
+    })
+  },
   postLogoutSuccessSource: (ctx: any) => {
-    ctx.req.session.userId = undefined
-    ctx.req.session.uid = undefined
     ctx.res.render('message', {
       title: 'Sign Out',
       messageTitle: 'Sign Out',
@@ -80,6 +85,10 @@ const provider = new Provider(baseUrl, {
 })
 
 provider.proxy = !!process.env.TRUST_PROXY
+provider.on('end_session.success', (ctx: any) => {
+  ctx.req.session.userId = ''
+  ctx.req.session.uid = ''
+})
 
 workAuth(app, provider, wxWork)
 home(app, provider)
