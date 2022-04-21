@@ -1,14 +1,14 @@
 <%- include('partials/header', { title: 'Home' }) -%>
   <div class="message">
     <% if (user) { %>
-      <div class="title">Welcome</div>
+      <div class="title">欢迎</div>
       <div class="body">
-        <p>You have been logged in as <%= user %>.</p>
+        <p>您已通过 <%= vendor === 'feishu' ? '飞书' : '企业微信' %> 以 <%= user.name %> (<%= user.sub %>) 的身份登录。</p>
       </div>
     <% } else { %>
-      <div class="title">Welcome</div>
+      <div class="title">欢迎</div>
       <div class="body">
-        <p>You are not logged in. <a href="/login">Login</a></p>
+        <p>您尚未<a href="/login">登录</a>。</p>
       </div>
     <% } %>
   </div>

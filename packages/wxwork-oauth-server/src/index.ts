@@ -5,6 +5,8 @@ import { workAuth } from './routes/workAuth'
 import { WxWorkService } from './services/WxWorkService'
 import { readFileSync } from 'fs'
 import { home } from './routes/home'
+import { FeishuService } from './services/FeishuService'
+import { UserService } from './services/UserService'
 
 require('dotenv').config()
 
@@ -20,6 +22,8 @@ app.use(
 )
 
 const wxWork = new WxWorkService(process.env.CORP_ID, process.env.AGENT_ID, process.env.CORP_SECRET)
+const feishu = new FeishuService(process.env.APP_ID, process.env.APP_SECRET)
+const userService = new UserService(feishu, wxWork)
 
 const baseUrl = process.env.BASE_URL
 const jwks = JSON.parse(readFileSync(process.env.JWK_FILE).toString())
@@ -31,14 +35,20 @@ const provider = new Provider(baseUrl, {
     keys: [process.env.COOKIE_SECRET_KEY],
   },
   async findAccount(ctx, id) {
-    const user = await wxWork.getUser(id)
-    if (user.enable && user.userid == id) {
-      return {
-        accountId: id,
-        claims() {
-          return { ...user, sub: id, username: id }
-        },
+    const [vendor, userId] = id.split(':')
+    try {
+      const user = await userService.getUser(vendor, userId)
+      if (user && user.enabled) {
+        return {
+          accountId: id,
+          claims() {
+            return { ...user }
+          },
+        }
       }
+    } catch (e) {
+      console.error(e)
+      throw e
     }
   },
   features: {
@@ -90,8 +100,8 @@ provider.on('end_session.success', (ctx: any) => {
   ctx.req.session.uid = ''
 })
 
-workAuth(app, provider, wxWork)
-home(app, provider)
+workAuth(app, provider, wxWork, feishu)
+home(app, provider, userService)
 
 app.use(provider.callback)
 

@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "node -r source-map-support/register dist/index.js",
+    "dev": "nodemon --watch dist -r source-map-support/register dist/index.js",
     "start": "node dist/index.js",
     "build": "tsc",
     "watch": "tsc --watch --preserveWatchOutput",
@@ -24,6 +24,7 @@
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.2",
     "@types/node-fetch": "^2.5.4",
-    "jose": "^1.20.0"
+    "jose": "^1.20.0",
+    "nodemon": "^2.0.15"
   }
 }
