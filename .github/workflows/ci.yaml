@@ -21,7 +21,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            quay.io/oott123/nsis
+            quay.io/oott123/wxwork-oauth-server
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
             type=ref,event=branch
