@@ -55,6 +55,20 @@ const provider = new Provider(baseUrl, {
     devInteractions: {
       enabled: false,
     },
+    rpInitiatedLogout: {
+      logoutSource: (ctx: any, form: string) => {
+        ctx.res.render('logout', {
+          form,
+        })
+      },
+      postLogoutSuccessSource: (ctx: any) => {
+        ctx.res.render('message', {
+          title: 'Sign Out',
+          messageTitle: 'Sign Out',
+          message: 'You have been signed out successfully.',
+        })
+      },
+    },
   },
   scopes: ['openid', 'offline_access', 'email', 'name', 'mobile', 'avatar'],
   claims: {
@@ -79,18 +93,6 @@ const provider = new Provider(baseUrl, {
         message: error,
       })
     }
-  },
-  logoutSource: (ctx: any, form: string) => {
-    ctx.res.render('logout', {
-      form,
-    })
-  },
-  postLogoutSuccessSource: (ctx: any) => {
-    ctx.res.render('message', {
-      title: 'Sign Out',
-      messageTitle: 'Sign Out',
-      message: 'You have been signed out successfully.',
-    })
   },
 })
 

@@ -83,7 +83,7 @@ export function workAuth(app: Express, provider: Provider, wxWork: WxWorkService
       }
       req.session.state = undefined
 
-      const code = req.query.code
+      const code = req.query.code as string
       const info = await wxWork.getAccessInfo(code)
 
       if (!info.userId) {
@@ -117,7 +117,7 @@ export function workAuth(app: Express, provider: Provider, wxWork: WxWorkService
       }
       req.session.state = undefined
 
-      const code = req.query.code
+      const code = req.query.code as string
       const info = await feishu.getUserAccessByCode(code)
 
       if (!info.access_token || !info.access_token) {
