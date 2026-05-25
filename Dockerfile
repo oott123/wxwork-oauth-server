@@ -1,11 +1,12 @@
-FROM quay.io/oott123/node:12
+FROM node:24
 ADD . /app
 WORKDIR /app
-RUN yarn && \
+RUN npm install -g yarn && \
+  yarn && \
   yarn build && \
-  yarn --production
+  yarn workspaces focus --production --all
 
-FROM quay.io/oott123/node:12-slim
+FROM node:24-slim
 COPY --from=0 /app /app
 WORKDIR /app/packages/wxwork-oauth-server
 CMD ["node", "dist/index.js"]
