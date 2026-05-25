@@ -1,8 +1,7 @@
 FROM node:24
 ADD . /app
 WORKDIR /app
-RUN npm install -g yarn && \
-  yarn && \
+RUN yarn && \
   yarn build && \
   yarn workspaces focus --production --all
 
