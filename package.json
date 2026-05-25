@@ -30,5 +30,6 @@
     "source-map-support": "^0.5.16",
     "typescript": "^3.7.5",
     "wsrun": "^5.2.0"
-  }
+  },
+  "packageManager": "yarn@4.15.0"
 }

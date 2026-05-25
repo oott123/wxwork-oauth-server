@@ -1,7 +1,7 @@
 FROM node:24
 ADD . /app
 WORKDIR /app
-RUN yarn && \
+RUN corepack enable && yarn && \
   yarn build && \
   yarn workspaces focus --production --all
 
