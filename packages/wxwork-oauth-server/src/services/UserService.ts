@@ -68,6 +68,9 @@ export class UserService {
 }
 
 function getUsernameFromEmail(email: string) {
+  if (!email) {
+    throw new Error('No email found, contact your admin to add one.')
+  }
   return email.split('@')[0]
 }
 
